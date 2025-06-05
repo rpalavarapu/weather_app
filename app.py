@@ -25,3 +25,12 @@ if st.button("Get Weather"):
             current = data["current"]
             location = data["location"]["name"]
             country = data["location"]["country"]
+            st.subheader(f"🌍 Weather in {location}, {country}")
+            st.write(f"**Temperature:** {current['temperature']}°C")
+            st.write(f"**Weather Description:** {current['weather_descriptions'][0]}")
+            st.write(f"**Humidity:** {current['humidity']}%")
+            st.write(f"**Wind Speed:** {current['wind_speed']} km/h")
+        else:
+            st.error("City not found or API error.")
+    else:
+        st.warning("Please enter a city name.")
