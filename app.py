@@ -1,33 +1,27 @@
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="Weather App", page_icon="🌦️")
-st.title("🌦️ Real-Time Weather Fetcher")
+# Title of the app
+st.title("🌤️ Real-Time Weather App (Weatherstack API)")
 
-# User input
-city = st.text_input("Enter city name", "Hyderabad")
+# User input: city name
+city = st.text_input("Enter city name:")
 
-# Add your OpenWeatherMap API key here
-api_key = "a4e89c9f9eb30c8ecd11c546fdfe18f3"  # Replace with your actual API key
+# Your Weatherstack API key
+api_key = "a4e89c9f9eb30c8ecd11c546fdfe18f3"
 
+# Run when button is clicked
 if st.button("Get Weather"):
-    if not api_key or api_key == "a4e89c9f9eb30c8ecd11c546fdfe18f3":
-        st.error("Please add your OpenWeatherMap API key in the script.")
-    else:
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    if city:
+        # Build the request URL
+        url = f"http://api.weatherstack.com/current?access_key={api_key}&query={city}"
+        
+        # Send GET request
         response = requests.get(url)
+        data = response.json()
 
-        if response.status_code == 200:
-            data = response.json()
-            temp = data["main"]["temp"]
-            weather = data["weather"][0]["description"].title()
-            humidity = data["main"]["humidity"]
-            wind_speed = data["wind"]["speed"]
-
-            st.subheader(f"Weather in {city.title()}")
-            st.write(f"**Temperature:** {temp}°C")
-            st.write(f"**Condition:** {weather}")
-            st.write(f"**Humidity:** {humidity}%")
-            st.write(f"**Wind Speed:** {wind_speed} m/s")
-        else:
-            st.error("City not found or API error.")
+        # Check if the response contains valid data
+        if "current" in data:
+            current = data["current"]
+            location = data["location"]["name"]
+            country = data["location"]["country"]
