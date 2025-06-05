@@ -8,10 +8,10 @@ st.title("🌦️ Real-Time Weather Fetcher")
 city = st.text_input("Enter city name", "Hyderabad")
 
 # Add your OpenWeatherMap API key here
-api_key = "b309fbbc5e66e0b67f60f6acda3d7c24"  # Replace with your actual API key
+api_key = "a4e89c9f9eb30c8ecd11c546fdfe18f3"  # Replace with your actual API key
 
 if st.button("Get Weather"):
-    if not api_key or api_key == "b309fbbc5e66e0b67f60f6acda3d7c24":
+    if not api_key or api_key == "a4e89c9f9eb30c8ecd11c546fdfe18f3":
         st.error("Please add your OpenWeatherMap API key in the script.")
     else:
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
